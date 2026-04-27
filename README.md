@@ -1,138 +1,168 @@
-# LaundryOps - Complete Order Management System
+# LaundryOps — Mini Laundry Order Management System
 
-A full-stack laundry order management system with REST API backend and React frontend.
+A lightweight REST API and React frontend for managing daily dry-cleaning orders — from creation to delivery — with automatic billing, status tracking, and a live business dashboard.
 
-## 🎯 Features Implemented
-
-### Core Features (All 10 Requirements)
-- ✅ Project scaffolding with clean structure
-- ✅ Create orders with automatic billing
-- ✅ Update order status (RECEIVED → PROCESSING → READY → DELIVERED)
-- ✅ View all orders with filters
-- ✅ Get single order details
-- ✅ Dashboard with statistics
-- ✅ Health check endpoint
-- ✅ Centralized error handling
-- ✅ Request/response logging
-- ✅ Complete documentation
-
-### Bonus Features
-- ✅ **React Frontend** - Clean, responsive UI with Vite
-- ✅ **Authentication** - JWT-based login/register system
-- ✅ **SQLite Database** - Persistent data storage
-- ✅ **Search by Garment** - Filter orders by garment type
-- ✅ **Estimated Delivery Date** - Auto-calculated (3 days)
-- ✅ **Deployment Ready** - Configs for Vercel, Railway, Render, AWS
+---
 
 ## 📁 Project Structure
 
 ```
-📦 LaundryOps
-├── 📄 README.md                        # Main documentation
-├── 📄 .gitignore                       # Git ignore rules
-│
-├── 📁 laundryops/                      # Backend (Node.js + Express)
-│   ├── 📁 config/
-│   │   └── prices.js                   # Garment pricing configuration
-│   │
-│   ├── 📁 db/
-│   │   └── database.js                 # SQLite database setup
-│   │
-│   ├── 📁 middleware/
-│   │   ├── auth.js                     # JWT authentication middleware
-│   │   └── errorHandler.js            # Centralized error handling
-│   │
-│   ├── 📁 routes/
-│   │   ├── auth.js                     # Authentication endpoints
-│   │   ├── orders.js                   # Order management endpoints
-│   │   └── dashboard.js                # Dashboard statistics
-│   │
-│   ├── 📁 tests/                       # Test suite
-│   │   ├── README.md                   # Test documentation
-│   │   ├── test-api.js                 # Quick API tests
-│   │   └── test-comprehensive.js       # Full test suite (47 tests)
-│   │
-│   ├── .env.example                    # Environment variables template
-│   ├── .gitignore                      # Backend git ignore
-│   ├── index.js                        # Server entry point
-│   ├── package.json                    # Backend dependencies
-│   ├── render.yaml                     # Render deployment config
-│   └── vercel.json                     # Vercel deployment config
-│
-└── 📁 laundryops-frontend/             # Frontend (React + Vite)
-    ├── 📁 src/
-    │   ├── 📁 components/
-    │   │   ├── Auth.jsx                # Login/Register component
-    │   │   ├── Dashboard.jsx           # Statistics dashboard
-    │   │   ├── CreateOrder.jsx         # Order creation form
-    │   │   └── OrdersList.jsx          # Orders list with filters
-    │   ├── App.jsx                     # Main application component
-    │   ├── main.jsx                    # React entry point
-    │   └── index.css                   # Global styles
-    │
-    ├── .env.example                    # Frontend environment template
-    ├── .gitignore                      # Frontend git ignore
-    ├── index.html                      # HTML entry point
-    ├── package.json                    # Frontend dependencies
-    ├── README.md                       # Frontend documentation
-    └── vite.config.js                  # Vite configuration
+laundryops/
+├── config/
+│   └── prices.js              # Garment pricing map
+├── db/
+│   └── database.js            # SQLite setup + schema init
+├── middleware/
+│   ├── auth.js                # JWT authentication middleware
+│   └── errorHandler.js        # Centralized error handling
+├── routes/
+│   ├── auth.js                # Register / Login / Me
+│   ├── orders.js              # Order CRUD + status updates
+│   └── dashboard.js           # Aggregated statistics
+├── tests/
+│   ├── test-api.js            # Quick smoke tests
+│   └── test-comprehensive.js  # Full suite (47 tests)
+├── frontend/                  # React + Vite UI
+│   └── src/
+│       ├── components/
+│       │   ├── Auth.jsx
+│       │   ├── Dashboard.jsx
+│       │   ├── CreateOrder.jsx
+│       │   └── OrdersList.jsx
+│       └── App.jsx
+├── .env.example
+├── index.js                   # Express entry point
+└── package.json
 ```
 
-## 🚀 Quick Start
+---
 
-### Backend Setup
+## 🚀 Setup Instructions
+
+### Prerequisites
+
+- Node.js v18 or higher
+- npm
+
+### Backend
 
 ```bash
-cd laundryops
+git clone https://github.com/Magenta91/laundaryops.git
+cd laundaryops
 npm install
 cp .env.example .env
 npm run dev
 ```
 
-Backend runs on `http://localhost:3000`
+Server starts at **http://localhost:3000**
 
-### Frontend Setup
+The SQLite database file (`laundryops.db`) is created automatically on first run. No database setup required.
+
+### Frontend
+
+The frontend is deployed and live at GitHub Pages — no local setup needed:
+
+👉 **https://magenta91.github.io/laundaryops/**
+
+To run locally:
 
 ```bash
-cd laundryops-frontend
+cd frontend
 npm install
 cp .env.example .env
 npm run dev
 ```
 
-Frontend runs on `http://localhost:5173`
+Local frontend starts at **http://localhost:5173**
 
-## 🔑 API Endpoints
+### Environment Variables
+
+**Backend `.env`**
+
+```
+PORT=3000
+NODE_ENV=development
+JWT_SECRET=your-secret-key-change-in-production
+JWT_EXPIRES_IN=7d
+```
+
+**Frontend `.env`**
+
+```
+VITE_API_URL=http://localhost:3000
+```
+
+---
+
+## ✅ Features Implemented
+
+### Core (All 4 Requirements)
+
+| Feature | Endpoint | Status |
+|---|---|---|
+| Create Order with auto-billing | `POST /api/orders` | ✅ |
+| Update Order Status | `PATCH /api/orders/:id/status` | ✅ |
+| View All Orders with Filters | `GET /api/orders` | ✅ |
+| Basic Dashboard | `GET /api/dashboard` | ✅ |
+| View Single Order | `GET /api/orders/:id` | ✅ |
+| Health Check | `GET /health` | ✅ |
+
+### Bonus Features (All Completed)
+
+| Bonus | Implementation | Status |
+|---|---|---|
+| React Frontend | Vite + React with Dashboard, Orders, Auth pages | ✅ |
+| Authentication | JWT login/register with bcrypt password hashing | ✅ |
+| SQLite Database | Persistent storage via `better-sqlite3` | ✅ |
+| Search by Garment | `GET /api/orders?garment=Shirt` | ✅ |
+| Estimated Delivery Date | Auto-calculated as 3 days from order creation | ✅ |
+| Deployment Ready | `render.yaml` + `vercel.json` included | ✅ |
+
+---
+
+## 🔌 API Reference
 
 ### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/login` - Login user
-- `GET /api/auth/me` - Get current user
+
+| Method | Endpoint | Description | Request Body | Response |
+|---|---|---|---|---|
+| POST | `/api/auth/register` | Register new user | `{ username, password }` | `201 { token }` |
+| POST | `/api/auth/login` | Login | `{ username, password }` | `200 { token }` |
+| GET | `/api/auth/me` | Get current user | — (Bearer token) | `200 { id, username }` |
 
 ### Orders
-- `POST /api/orders` - Create order
-- `GET /api/orders` - List orders (with filters)
-- `GET /api/orders/:id` - Get single order
-- `PATCH /api/orders/:id/status` - Update status
 
-### Dashboard
-- `GET /api/dashboard` - Get statistics
+| Method | Endpoint | Description | Request Body / Query | Response |
+|---|---|---|---|---|
+| POST | `/api/orders` | Create an order | `{ customer_name, phone, garments[] }` | `201` full order object |
+| GET | `/api/orders` | List all orders | `?status=&customer_name=&phone=&garment=` | `200 { count, orders[] }` |
+| GET | `/api/orders/:id` | Get one order | — | `200` full order with items |
+| PATCH | `/api/orders/:id/status` | Update status | `{ status }` | `200 { id, status, message }` |
 
-### Health
-- `GET /health` - Health check
+### Dashboard & Utility
 
-## 🔍 Search & Filter
+| Method | Endpoint | Description | Response |
+|---|---|---|---|
+| GET | `/api/dashboard` | Business summary | `200 { total_orders, total_revenue, orders_by_status }` |
+| GET | `/health` | Health check | `200 { status, db, uptime_seconds }` |
 
-Orders can be filtered by:
-- **Status** - RECEIVED, PROCESSING, READY, DELIVERED
-- **Customer Name** - Partial match
-- **Phone** - Exact match
-- **Garment Type** - NEW! Search by garment (e.g., "Shirt", "Saree")
+### Order Status Values
 
-## 💰 Pricing
+`RECEIVED` → `PROCESSING` → `READY` → `DELIVERED`
+
+### Validation Errors (400)
+
+- `customer_name` or `phone` missing
+- `garments` is empty or not an array
+- Garment not in price list (e.g., "Jeans")
+- `quantity` is not a positive integer
+
+---
+
+## 💰 Price List
 
 | Garment | Price (₹) |
-|---------|-----------|
+|---|---|
 | Shirt | 50 |
 | Pants | 60 |
 | Saree | 120 |
@@ -141,193 +171,130 @@ Orders can be filtered by:
 | Bedsheet | 100 |
 | Towel | 30 |
 
-## 🔐 Authentication
+---
 
-- JWT-based authentication
-- Optional - system works without auth (guest mode)
-- Tokens expire in 7 days (configurable)
-- Password hashing with bcrypt
+## 🤖 AI Usage Report
 
-## 📅 Estimated Delivery
+### Tools Used
 
-- Automatically calculated as 3 days from order creation
-- Displayed in order details
-- Can be customized in backend logic
+- **Claude (Anthropic)** — primary tool for architecture decisions, scaffolding, and debugging
+- **GitHub Copilot** — inline code completion during development
 
-## 🧪 Testing
+### How AI Was Used
 
-Backend includes comprehensive test suite with **47 tests** covering all requirements:
+The approach was AI-first throughout:
 
-```bash
-cd laundryops/tests
-node test-comprehensive.js
+1. **Architecture** — Asked Claude to compare approaches (in-memory vs SQLite vs MongoDB) and recommend the best fit. It recommended Node.js + Express + SQLite as the optimal balance between speed and demonstrating real persistence.
+
+2. **Initial Scaffold** — Provided Claude a detailed requirements prompt (structured like a spec doc with User Stories and Acceptance Criteria) and it generated the full folder structure, `index.js`, `database.js`, `prices.js`, and all three route files in a single pass.
+
+3. **Validation Logic** — Prompted Claude to generate validation for the `POST /api/orders` endpoint. It got the garment lookup and total bill calculation right immediately.
+
+4. **Bonus Features** — Asked Claude to add JWT auth, garment-type filtering, and estimated delivery date. Auth boilerplate (register/login/middleware) was generated in one prompt.
+
+5. **Test Suite** — Asked Claude to generate a comprehensive test script covering all 47 cases. Required minor URL adjustments to match actual route structure.
+
+### Sample Prompts Used
+
+```
+"Build a POST /api/orders endpoint that validates customer_name, phone,
+and a garments array. Each garment must exist in PRICES config. Compute
+total_bill from quantity × unit_price. Insert atomically into orders and
+order_items tables. Return 201 with the full order object."
 ```
 
-**Test Coverage:**
-- ✅ All 10 core requirements (100%)
-- ✅ Authentication flows (login/register)
-- ✅ Input validation (unknown garments, missing fields, invalid quantities)
-- ✅ Error handling (400, 404, 500)
-- ✅ Search/filter functionality (status, name, phone, garment)
-- ✅ Order lifecycle (create → update → retrieve)
-- ✅ Dashboard statistics
-- ✅ Health check endpoint
+```
+"Add JWT authentication to the Express app. Create register and login
+endpoints. Add a middleware that protects routes when a token is present
+but allows guest access when no token is sent."
+```
 
-**Expected Result:**
+### What AI Got Right
+
+- Complete route and middleware boilerplate required almost no edits
+- SQLite transaction logic for atomic inserts was correct on first generation
+- Error response format was consistent across all routes
+- The test suite structure and assertions were accurate
+
+### What Needed Manual Fixes
+
+- The initial scaffold used `express.Router()` in all files but mounted them incorrectly in `index.js` — fixed path prefixes manually
+- AI generated `app.use(express.json())` after route mounting in one version — had to reorder middleware
+- The garment filter for `GET /api/orders` required a SQL JOIN on `order_items` that the AI initially implemented as a JavaScript filter post-query — rewrote it as a proper JOIN for correctness and performance
+- Frontend CORS issue: AI didn't include `cors()` middleware in the initial backend — added manually
+
+---
+
+## ⚖️ Tradeoffs
+
+### What Was Skipped
+
+- **Input sanitization** — phone and name fields accept any string; in production these would be sanitized and validated with regex
+- **Pagination** — `GET /api/orders` returns all orders; a real system would use `LIMIT` / `OFFSET`
+- **Role-based access** — auth is present but all authenticated users can see all orders; a production system would scope data per user or store
+- **Unit tests** — test suite is integration-style (hits a live server); no isolated unit tests for service functions
+
+### What SQLite Means for Production
+
+SQLite is a single-file database with no concurrent write support. For a real store with multiple staff on different devices, this would be replaced with PostgreSQL or MySQL on a proper server. For this assignment's scope (one operator, demo environment), SQLite is perfectly appropriate — it's fast, zero-config, and ships with the repo.
+
+### What Would Improve With More Time
+
+- Add rate limiting per phone number to prevent order spam
+- Add a proper order receipt endpoint (PDF generation)
+- Improve the frontend to show an order timeline instead of just a status badge
+- Add WebSocket support so the dashboard updates live without polling
+- Replace the custom test runner with Jest for cleaner test output and mocking
+
+---
+
+## 🧪 Running Tests
+
+```bash
+# Quick API smoke test (requires server running)
+node tests/test-api.js
+
+# Full suite — 47 tests covering all requirements + bonus features
+node tests/test-comprehensive.js
+```
+
+Expected output:
+
 ```
 📊 TEST SUMMARY:
    ✅ Passed: 47
    ❌ Failed: 0
    📈 Success Rate: 100.0%
 
-🎉 ALL TESTS PASSED! LaundryOps is working perfectly!
+🎉 ALL TESTS PASSED!
 ```
-
-**Quick API Test:**
-```bash
-cd laundryops/tests
-node test-api.js
-```
-
-## 🌐 Deployment
-
-### Backend Deployment
-
-#### Option 1: Render (Recommended - Auto-configured)
-1. Go to [render.com](https://render.com)
-2. Click **"New +"** → **"Blueprint"**
-3. Connect repository: `Magenta91/laundaryops`
-4. Render auto-detects `render.yaml` and configures everything
-5. Click **"Apply"**
-
-The `render.yaml` automatically:
-- ✅ Sets up Node.js environment
-- ✅ Installs dependencies
-- ✅ Generates secure JWT_SECRET
-- ✅ Configures all environment variables
-
-#### Option 2: Vercel
-```bash
-cd laundryops
-vercel
-```
-Set environment variables in Vercel dashboard.
-
-#### Option 3: Railway
-```bash
-cd laundryops
-railway up
-```
-Set environment variables via Railway CLI or dashboard.
-
-### Frontend Deployment
-
-#### Vercel (Recommended for Frontend)
-```bash
-cd laundryops-frontend
-vercel
-```
-Set `VITE_API_URL` to your deployed backend URL.
-
-#### Netlify
-```bash
-cd laundryops-frontend
-npm run build
-# Deploy the 'dist' folder
-```
-
-### Full Stack Deployment
-- **Backend:** Render/Railway (Node.js)
-- **Frontend:** Vercel/Netlify (Static)
-- **Database:** SQLite (included, auto-created)
-
-## 🔧 Environment Variables
-
-### Backend (.env)
-```bash
-PORT=3000
-NODE_ENV=development
-JWT_SECRET=your-secret-key-change-in-production
-JWT_EXPIRES_IN=7d
-
-# Generate secure JWT_SECRET for production:
-# node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
-```
-
-**Security Note:** The app will refuse to start in production without a valid `JWT_SECRET`.
-
-### Frontend (.env)
-```bash
-VITE_API_URL=http://localhost:3000
-
-# For production, set to your deployed backend URL:
-# VITE_API_URL=https://your-backend.onrender.com
-```
-
-## 📊 Tech Stack
-
-### Backend
-- **Runtime:** Node.js
-- **Framework:** Express.js
-- **Database:** SQLite (sql.js - pure JavaScript, no native compilation)
-- **Authentication:** JWT (jsonwebtoken)
-- **Security:** bcryptjs (password hashing)
-- **CORS:** cors middleware
-- **Dev Tools:** nodemon
-
-### Frontend
-- **Framework:** React 18
-- **Build Tool:** Vite 5
-- **Styling:** Vanilla CSS (no framework)
-- **State Management:** React Hooks (useState, useEffect)
-- **HTTP Client:** Fetch API
-
-### DevOps
-- **Version Control:** Git
-- **Deployment:** Render (backend), Vercel (frontend)
-- **Testing:** Custom test suite (47 tests)
-- **CI/CD Ready:** Automated deployment configs
-
-## 🎨 Features Showcase
-
-### Dashboard
-- Total orders count
-- Total revenue
-- Status breakdown (Received, Processing, Ready, Delivered)
-
-### Order Creation
-- Visual garment selector
-- Real-time total calculation
-- Automatic order ID generation (ORD-xxxxxxxx)
-- Estimated delivery date
-
-### Order Management
-- Filter by multiple criteria
-- Update status with dropdown
-- View detailed order information
-- Search by garment type
-
-### Authentication
-- Secure login/register
-- Guest mode available
-- User profile display
-- Token-based sessions
-
-## 📝 License
-
-ISC
-
-## 👨‍💻 Development
-
-Built with modern best practices:
-- Clean code architecture
-- Separation of concerns
-- RESTful API design
-- Responsive UI
-- Error handling
-- Input validation
-- Security (JWT, bcrypt, CORS)
 
 ---
 
-**Ready for production deployment!** 🚀
+## 🌐 Deployment
+
+### Backend — Render (auto-configured)
+
+1. Go to [render.com](https://render.com) → New → Blueprint
+2. Connect repo: `Magenta91/laundaryops`
+3. Render reads `render.yaml` and deploys automatically
+
+### Frontend — GitHub Pages ✅ Live
+
+Deployed at: **https://magenta91.github.io/laundaryops/**
+
+Deployed via GitHub Actions on every push to `main`. The Vite build output is published to the `gh-pages` branch automatically.
+
+---
+
+## 🛠 Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Runtime | Node.js 18 |
+| Framework | Express.js |
+| Database | SQLite via `better-sqlite3` |
+| Auth | JWT (`jsonwebtoken` + `bcryptjs`) |
+| Frontend | React 18 + Vite |
+| Testing | Custom Node.js test runner |
+| Deployment | Render (backend) + GitHub Pages (frontend) |
