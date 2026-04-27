@@ -2,6 +2,7 @@ services:
   - type: web
     name: laundryops
     env: node
+    rootDir: laundryops
     buildCommand: npm install
     startCommand: npm start
     envVars:
