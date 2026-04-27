@@ -27,37 +27,55 @@ A full-stack laundry order management system with REST API backend and React fro
 ## 📁 Project Structure
 
 ```
-laundryops/                    # Backend (Node.js + Express)
-├── config/
-│   └── prices.js             # Garment pricing
-├── db/
-│   └── database.js           # SQLite setup
-├── middleware/
-│   ├── auth.js               # JWT authentication
-│   └── errorHandler.js       # Error handling
-├── routes/
-│   ├── auth.js               # Auth endpoints
-│   ├── orders.js             # Order management
-│   └── dashboard.js          # Dashboard stats
-├── .env.example
-├── index.js                  # Server entry point
-├── package.json
-└── README.md
-
-laundryops-frontend/           # Frontend (React + Vite)
-├── src/
-│   ├── components/
-│   │   ├── Auth.jsx          # Login/Register
-│   │   ├── Dashboard.jsx     # Statistics
-│   │   ├── CreateOrder.jsx   # Order creation
-│   │   └── OrdersList.jsx    # Orders list
-│   ├── App.jsx               # Main app
-│   ├── main.jsx              # Entry point
-│   └── index.css             # Styles
-├── index.html
-├── vite.config.js
-├── package.json
-└── README.md
+📦 LaundryOps
+├── 📄 README.md                        # Main documentation
+├── 📄 .gitignore                       # Git ignore rules
+│
+├── 📁 laundryops/                      # Backend (Node.js + Express)
+│   ├── 📁 config/
+│   │   └── prices.js                   # Garment pricing configuration
+│   │
+│   ├── 📁 db/
+│   │   └── database.js                 # SQLite database setup
+│   │
+│   ├── 📁 middleware/
+│   │   ├── auth.js                     # JWT authentication middleware
+│   │   └── errorHandler.js            # Centralized error handling
+│   │
+│   ├── 📁 routes/
+│   │   ├── auth.js                     # Authentication endpoints
+│   │   ├── orders.js                   # Order management endpoints
+│   │   └── dashboard.js                # Dashboard statistics
+│   │
+│   ├── 📁 tests/                       # Test suite
+│   │   ├── README.md                   # Test documentation
+│   │   ├── test-api.js                 # Quick API tests
+│   │   └── test-comprehensive.js       # Full test suite (47 tests)
+│   │
+│   ├── .env.example                    # Environment variables template
+│   ├── .gitignore                      # Backend git ignore
+│   ├── index.js                        # Server entry point
+│   ├── package.json                    # Backend dependencies
+│   ├── render.yaml                     # Render deployment config
+│   └── vercel.json                     # Vercel deployment config
+│
+└── 📁 laundryops-frontend/             # Frontend (React + Vite)
+    ├── 📁 src/
+    │   ├── 📁 components/
+    │   │   ├── Auth.jsx                # Login/Register component
+    │   │   ├── Dashboard.jsx           # Statistics dashboard
+    │   │   ├── CreateOrder.jsx         # Order creation form
+    │   │   └── OrdersList.jsx          # Orders list with filters
+    │   ├── App.jsx                     # Main application component
+    │   ├── main.jsx                    # React entry point
+    │   └── index.css                   # Global styles
+    │
+    ├── .env.example                    # Frontend environment template
+    ├── .gitignore                      # Frontend git ignore
+    ├── index.html                      # HTML entry point
+    ├── package.json                    # Frontend dependencies
+    ├── README.md                       # Frontend documentation
+    └── vite.config.js                  # Vite configuration
 ```
 
 ## 🚀 Quick Start
@@ -138,68 +156,137 @@ Orders can be filtered by:
 
 ## 🧪 Testing
 
-Backend includes comprehensive test suite:
+Backend includes comprehensive test suite with **47 tests** covering all requirements:
 
 ```bash
-cd laundryops
+cd laundryops/tests
 node test-comprehensive.js
 ```
 
-Tests cover:
-- All 10 core requirements
-- Authentication flows
-- Validation
-- Error handling
-- Search/filter functionality
+**Test Coverage:**
+- ✅ All 10 core requirements (100%)
+- ✅ Authentication flows (login/register)
+- ✅ Input validation (unknown garments, missing fields, invalid quantities)
+- ✅ Error handling (400, 404, 500)
+- ✅ Search/filter functionality (status, name, phone, garment)
+- ✅ Order lifecycle (create → update → retrieve)
+- ✅ Dashboard statistics
+- ✅ Health check endpoint
+
+**Expected Result:**
+```
+📊 TEST SUMMARY:
+   ✅ Passed: 47
+   ❌ Failed: 0
+   📈 Success Rate: 100.0%
+
+🎉 ALL TESTS PASSED! LaundryOps is working perfectly!
+```
+
+**Quick API Test:**
+```bash
+cd laundryops/tests
+node test-api.js
+```
 
 ## 🌐 Deployment
 
-### Vercel
+### Backend Deployment
+
+#### Option 1: Render (Recommended - Auto-configured)
+1. Go to [render.com](https://render.com)
+2. Click **"New +"** → **"Blueprint"**
+3. Connect repository: `Magenta91/laundaryops`
+4. Render auto-detects `render.yaml` and configures everything
+5. Click **"Apply"**
+
+The `render.yaml` automatically:
+- ✅ Sets up Node.js environment
+- ✅ Installs dependencies
+- ✅ Generates secure JWT_SECRET
+- ✅ Configures all environment variables
+
+#### Option 2: Vercel
 ```bash
 cd laundryops
 vercel
 ```
+Set environment variables in Vercel dashboard.
 
-### Railway
+#### Option 3: Railway
 ```bash
 cd laundryops
 railway up
 ```
+Set environment variables via Railway CLI or dashboard.
 
-### Render
-- Connect GitHub repo
-- Use `render.yaml` configuration
+### Frontend Deployment
 
-### AWS EC2
-See `DEPLOYMENT.md` for detailed instructions
+#### Vercel (Recommended for Frontend)
+```bash
+cd laundryops-frontend
+vercel
+```
+Set `VITE_API_URL` to your deployed backend URL.
+
+#### Netlify
+```bash
+cd laundryops-frontend
+npm run build
+# Deploy the 'dist' folder
+```
+
+### Full Stack Deployment
+- **Backend:** Render/Railway (Node.js)
+- **Frontend:** Vercel/Netlify (Static)
+- **Database:** SQLite (included, auto-created)
 
 ## 🔧 Environment Variables
 
 ### Backend (.env)
-```
+```bash
 PORT=3000
+NODE_ENV=development
 JWT_SECRET=your-secret-key-change-in-production
 JWT_EXPIRES_IN=7d
+
+# Generate secure JWT_SECRET for production:
+# node -e "console.log(require('crypto').randomBytes(64).toString('hex'))"
 ```
 
+**Security Note:** The app will refuse to start in production without a valid `JWT_SECRET`.
+
 ### Frontend (.env)
-```
+```bash
 VITE_API_URL=http://localhost:3000
+
+# For production, set to your deployed backend URL:
+# VITE_API_URL=https://your-backend.onrender.com
 ```
 
 ## 📊 Tech Stack
 
 ### Backend
-- Node.js
-- Express.js
-- SQLite (sql.js)
-- JWT (jsonwebtoken)
-- bcrypt
+- **Runtime:** Node.js
+- **Framework:** Express.js
+- **Database:** SQLite (sql.js - pure JavaScript, no native compilation)
+- **Authentication:** JWT (jsonwebtoken)
+- **Security:** bcryptjs (password hashing)
+- **CORS:** cors middleware
+- **Dev Tools:** nodemon
 
 ### Frontend
-- React 18
-- Vite
-- Vanilla CSS
+- **Framework:** React 18
+- **Build Tool:** Vite 5
+- **Styling:** Vanilla CSS (no framework)
+- **State Management:** React Hooks (useState, useEffect)
+- **HTTP Client:** Fetch API
+
+### DevOps
+- **Version Control:** Git
+- **Deployment:** Render (backend), Vercel (frontend)
+- **Testing:** Custom test suite (47 tests)
+- **CI/CD Ready:** Automated deployment configs
 
 ## 🎨 Features Showcase
 
